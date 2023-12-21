@@ -1,0 +1,38 @@
+[
+    {
+      "Id":1,
+      "Name":"Birla House",
+      "Type":"House",
+      "Price":12000
+    },
+    {
+      "Id":2,
+      "Name":"Erose villa",
+      "Type":"House",
+      "Price":13000
+    },
+    {
+      "Id":3,
+      "Name":"Shyama villa",
+      "Type":"House",
+      "Price":1000
+    },
+    {
+      "Id":4,
+      "Name":"Logic Gate",
+      "Type":"House",
+      "Price":18000
+    },
+    {
+      "Id":5,
+      "Name":"Dark House",
+      "Type":"House",
+      "Price":120000
+    },
+    {
+      "Id":6,
+      "Name":"Sudu House",
+      "Type":"House",
+      "Price":12200
+    }
+  ]
