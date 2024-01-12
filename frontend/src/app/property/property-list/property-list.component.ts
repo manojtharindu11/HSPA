@@ -9,7 +9,7 @@ import { IProperty } from '../Iproperty.interface';
 })
 export class PropertyListComponent implements OnInit {
 
-  properties: any;
+  properties: Array<IProperty> = [];
 
   constructor(private housingService: HousingService) { }
 
