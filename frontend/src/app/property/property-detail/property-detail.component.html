@@ -1,0 +1,12 @@
+<p>property-detail works! {{propertyId}}</p>
+<button class="btn btn-primary" (click)="onSelectNext()">Select Next Page</button>
+
+<br><br>
+
+<button class="btn btn-primary" routerLink="/property-detail/1">1</button>
+<button class="btn btn-primary" routerLink="/property-detail/2">2</button>
+<button class="btn btn-primary" routerLink="/property-detail/3">3</button>
+
+<button class="btn btn-primary" [routerLink]="['/property-detail','4']">4</button>
+
+
