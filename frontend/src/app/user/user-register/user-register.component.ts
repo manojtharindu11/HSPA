@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { User } from 'src/app/model/user';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserRegisterComponent implements OnInit {
   registrationForm!: FormGroup;
-  user:any = [];
+  user!:User;
 
   constructor(private fb:FormBuilder,private userService:UserService) {}
 
@@ -79,8 +80,22 @@ export class UserRegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    this.userService.addUsers(this.registrationForm.value);
-    this.registrationForm.reset();
+    if (this.registrationForm.valid) {
+      this.userService.addUsers(this.userData());
+      this.registrationForm.reset();
+    } else {
+      this.registrationForm.markAllAsTouched();
+    }
+
+  }
+
+  userData(): User {
+    return this.user = {
+      userName: this.userName.value,
+      email: this.email.value,
+      password: this.password.value,
+      mobile:this.mobile.value
+    }
   }
 
 

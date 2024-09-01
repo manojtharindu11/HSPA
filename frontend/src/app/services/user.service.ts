@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { User } from '../model/user';
 
 @Injectable({
   providedIn: 'root'
@@ -7,10 +8,10 @@ export class UserService {
 
   constructor() { }
 
-  addUsers(user: any) {
+  addUsers(user: User) {
     // Retrieve the existing users from local storage
     let storedUsers = localStorage.getItem('Users');
-    let users = [];
+    let users:User[] = [];
 
     // If there are already users in local storage, parse them
     if (storedUsers) {
