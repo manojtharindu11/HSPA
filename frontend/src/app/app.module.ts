@@ -11,6 +11,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component'
 import { HousingService } from './services/housing.service';
 import { AddPropertyComponent } from './property/add-property/add-property/add-property.component';
 import { PropertyDetailComponent } from './property/property-detail/property-detail.component';
+import { FormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   {path: 'add-property', component: AddPropertyComponent},
@@ -30,7 +31,8 @@ const appRoutes: Routes = [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FormsModule
   ],
   providers: [
     HousingService
