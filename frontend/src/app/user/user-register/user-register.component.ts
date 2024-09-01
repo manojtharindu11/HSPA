@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-user-register',
@@ -8,9 +9,9 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Vali
 })
 export class UserRegisterComponent implements OnInit {
   registrationForm!: FormGroup;
-  user:any;
+  user:any = [];
 
-  constructor(private fb:FormBuilder) {}
+  constructor(private fb:FormBuilder,private userService:UserService) {}
 
   ngOnInit(): void {
 
@@ -37,7 +38,7 @@ export class UserRegisterComponent implements OnInit {
       mobile: [null,[Validators.required,Validators.maxLength(10)]]
     },
     {
-      Validators: this.passwordMatchingValidator()
+      validators: this.passwordMatchingValidator()
     }
   )
   }
@@ -78,6 +79,9 @@ export class UserRegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.registrationForm)
+    this.userService.addUsers(this.registrationForm.value);
+    this.registrationForm.reset();
   }
+
+
 }
