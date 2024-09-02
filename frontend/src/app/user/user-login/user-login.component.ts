@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-user-login',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-login.component.css']
 })
 export class UserLoginComponent {
-
+  onSubmit(loginForm:NgForm) {
+    console.log(loginForm)
+  }
 }
