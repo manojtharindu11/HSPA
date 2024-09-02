@@ -17,6 +17,10 @@ import { PropertyDetailComponent } from './property/property-detail/property-det
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserLoginComponent } from './user/user-login/user-login.component';
 import { UserRegisterComponent } from './user/user-register/user-register.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+
+
 
 const appRoutes: Routes = [
   {path: 'add-property', component: AddPropertyComponent},
@@ -42,7 +46,9 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    TabsModule.forRoot(),
+    ButtonsModule.forRoot()
   ],
   providers: [
     HousingService
