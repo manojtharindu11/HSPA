@@ -18,7 +18,7 @@ export class PropertyCardComponent {
     Price: 0,
     FType: "",
     BHK: 0,
-    BuildUPArea: 0,
+    BuiltArea: 0,
     City: "",
     RTM: 0
 };
