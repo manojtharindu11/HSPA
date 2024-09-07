@@ -78,8 +78,10 @@
                 </div>
 
                 <div class="form-group col-12">
-                  <button type="button" class="btn btn-primary btn-block"
+                  <div class="mt-2">
+                    <button type="button" class="btn btn-primary btn-block"
                     (click)="selectTab(1, BasicInfo.valid)">Next</button>
+                  </div>
                 </div>
               </tab>
 
@@ -122,11 +124,13 @@
                 </div>
 
                 <div class="form-group col-12">
-                  <button type="button" class="btn btn-primary btn-block"
+                  <div class="d-flex gap-2 mt-2">
+                    <button type="button" class="btn btn-primary btn-block"
                     (click)="selectTab(2, PriceInfo.valid)">Next</button>
 
                   <button type="button" class="btn btn-primary btn-block"
                     (click)="selectTab(0, PriceInfo.valid)">Back</button>
+                  </div>
                 </div>
               </tab>
 
@@ -156,12 +160,15 @@
                 </div>
 
                 <div class="form-group col-12">
-                  <button type="button" class="btn btn-primary btn-block"
+                  <div class="d-flex gap-2 mt-2">
+                    <button type="button" class="btn btn-primary btn-block"
                     (click)="selectTab(3, AddressInfo.valid)">Next</button>
 
                   <button type="button" class="btn btn-primary btn-block"
                     (click)="selectTab(1, AddressInfo.valid)">Back</button>
                 </div>
+                  </div>
+
               </tab>
 
               <tab heading="Other Details" formGroupName="OtherInfo">
@@ -180,7 +187,7 @@
 
 
                 <div *ngIf="RTM.value==2" class="form-group col-6">
-                  <label>Possession/Avaialble From</label>
+                  <label>Possession/Available From</label>
                   <input type="text" class="form-control" formControlName="PossessionOn" bsDatepicker [bsConfig]="{containerClass: 'theme-dark-blue',
                     dateInputFormat: 'DD-MM-YYYY'}">
                 </div>
@@ -219,11 +226,13 @@
                 </div>
 
                 <div class="form-group col-12">
-                  <button type="button" class="btn btn-primary btn-block"
+                  <div class="d-flex gap-2 mt-2">
+                    <button type="button" class="btn btn-primary btn-block"
                     (click)="selectTab(4, OtherInfo.valid)">Next</button>
 
                   <button type="button" class="btn btn-primary btn-block"
                     (click)="selectTab(2, OtherInfo.valid)">Back</button>
+                  </div>
                 </div>
               </tab>
 
@@ -235,9 +244,11 @@
                   </div>
                 </div>
                 <div class="form-group col-12">
-                  <button type="button" class="btn btn-primary btn-block" (click)="selectTab(3, true)">Back</button>
-                  <button type="submit" class="btn btn-primary btn-block">Save</button>
-                  <button type="reset" class="btn btn-primary btn-block">Cancel</button>
+                  <div class="d-flex flex-column gap-2 mt-2">
+                    <button type="button" class="btn btn-primary btn-block" (click)="selectTab(3, true)">Back</button>
+                    <button type="submit" class="btn btn-primary btn-block">Save</button>
+                    <button type="reset" class="btn btn-primary btn-block">Cancel</button>
+                  </div>
                 </div>
               </tab>
             </tabset>
