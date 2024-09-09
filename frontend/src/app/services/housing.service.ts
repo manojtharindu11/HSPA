@@ -14,6 +14,7 @@ export class HousingService {
   getProperty(id:number) {
     return this.getAllProperties().pipe(
       map(propertyArray => {
+        // throw new Error("Some error")
         return propertyArray.find(p=> p.Id == id)
       })
     )

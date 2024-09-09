@@ -1,3 +1,4 @@
+import { PropertyDetailResolverService } from './property/property-detail/property-detail-resolver.service';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PropertyListComponent } from './property/property-list/property-list.component';
@@ -10,7 +11,7 @@ const routes: Routes = [
   {path:'', component:PropertyListComponent},
   {path:'add-property', component:AddPropertyComponent},
   {path:'rent-property', component:PropertyListComponent},
-  {path:'property-detail/:id', component:PropertyDetailComponent},
+  {path:'property-detail/:id', component:PropertyDetailComponent, resolve:{prp:PropertyDetailResolverService}},
   {path:'user/login', component:UserLoginComponent},
   {path:'user/register', component:UserRegisterComponent},
   {path:'**', component:PropertyListComponent}
