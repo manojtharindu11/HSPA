@@ -14,6 +14,8 @@ export class PropertyListComponent implements OnInit {
   today = new Date()
   city: string = ''
   searchCity: string = ''
+  sortByParam: string = ''
+  sortDirection:string = 'asc'
 
   constructor(private route:ActivatedRoute, private housingService: HousingService) { }
 
@@ -41,5 +43,13 @@ export class PropertyListComponent implements OnInit {
   onCityFilterClear() {
     this.searchCity = '';
     this.city = ''
+  }
+
+  onSortDirection(){
+    if (this.sortDirection === 'asc') {
+      this.sortDirection = 'desc'
+    } else if (this.sortDirection === 'desc') {
+      this.sortDirection = 'asc'
+    }
   }
 }
