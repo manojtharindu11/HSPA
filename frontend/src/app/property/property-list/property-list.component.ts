@@ -11,6 +11,7 @@ import { IPropertyBase } from 'src/app/model/IPropertyBase';
 export class PropertyListComponent implements OnInit {
   sellRent = 1;
   properties:IPropertyBase [] = [];
+  today = new Date()
 
   constructor(private route:ActivatedRoute, private housingService: HousingService) { }
 

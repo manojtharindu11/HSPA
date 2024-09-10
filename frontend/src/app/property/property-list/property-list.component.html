@@ -1,3 +1,7 @@
+<!-- Current Data : (Local) {{today | date:'medium'}} <br>
+Current Data : (Paris) {{today | date:'fullDate':'GMT+2'| uppercase}} -->
+
+
 <div class="row">
     <div *ngFor="let Property of properties" class="col-sm-4 p-3">
         <app-property-card [property]="Property"></app-property-card>
