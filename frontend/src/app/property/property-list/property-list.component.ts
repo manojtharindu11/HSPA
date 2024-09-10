@@ -12,6 +12,8 @@ export class PropertyListComponent implements OnInit {
   sellRent = 1;
   properties:IPropertyBase [] = [];
   today = new Date()
+  city: string = ''
+  searchCity: string = ''
 
   constructor(private route:ActivatedRoute, private housingService: HousingService) { }
 
@@ -30,5 +32,14 @@ export class PropertyListComponent implements OnInit {
       }
     )
     // this.http.get('data/properties.json').subscribe
+  }
+
+  onCityFilter() {
+    this.searchCity = this.city
+  }
+
+  onCityFilterClear() {
+    this.searchCity = '';
+    this.city = ''
   }
 }
