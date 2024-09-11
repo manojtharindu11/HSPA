@@ -47,5 +47,5 @@ jobs:
           args: deploy --only hosting --force
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          working-directory: ./frontend  # Ensure Firebase uses the correct directory
+      working-directory: ./frontend  # Ensure Firebase uses the correct directory
 
