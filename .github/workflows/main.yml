@@ -15,7 +15,7 @@ jobs:
       - name: Build dependencies
         run: npm run build
       - name: Archive production artifact
-        uses: actions/uplord-artifact@main
+        uses: actions/upload-artifact@main
         with:
           name: dist
           path: dist
