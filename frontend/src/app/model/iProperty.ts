@@ -1,4 +1,4 @@
-import { IPropertyBase } from "./IPropertyBase";
+import { IPropertyBase } from "./iPropertyBase";
 
 export interface IProperty extends IPropertyBase {
     Description:string;

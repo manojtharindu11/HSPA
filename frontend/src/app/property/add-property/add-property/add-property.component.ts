@@ -9,7 +9,7 @@ import {
 import { Router } from '@angular/router';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { ToastrService } from 'ngx-toastr';
-import { IPropertyBase } from 'src/app/model/IPropertyBase';
+import { IPropertyBase } from 'src/app/model/iPropertyBase';
 import { Property } from 'src/app/model/property';
 import { HousingService } from 'src/app/services/housing.service';
 

@@ -1,4 +1,4 @@
-import { IPropertyBase } from "./IPropertyBase";
+import { IPropertyBase } from "./iPropertyBase";
 
 export class Property implements IPropertyBase {
   Id: number = 0;
