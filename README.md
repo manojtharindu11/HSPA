@@ -1,0 +1,3 @@
+- Add github workflows to auto deploy to firebase
+- https://hspa-angular-16.web.app/ host link
+- angular route resolver
