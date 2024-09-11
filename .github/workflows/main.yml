@@ -43,6 +43,7 @@ jobs:
           
       - name: Deploy to firebase
         uses: w9jds/firebase-action@master
+        working-directory: ./frontend
         with:
           args: deploy --only hosting --force
         env:
