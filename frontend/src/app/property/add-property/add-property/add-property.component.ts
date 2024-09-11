@@ -8,9 +8,9 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
+import { ToastrService } from 'ngx-toastr';
 import { IPropertyBase } from 'src/app/model/IPropertyBase';
 import { Property } from 'src/app/model/property';
-import { AlertifyService } from 'src/app/services/alertify.service';
 import { HousingService } from 'src/app/services/housing.service';
 
 @Component({
@@ -46,7 +46,7 @@ export class AddPropertyComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private housingService: HousingService,
-    private alertify: AlertifyService
+    private toastr: ToastrService
   ) {}
 
   ngOnInit() {
@@ -206,7 +206,7 @@ export class AddPropertyComponent implements OnInit {
     if (this.allTabsValid()) {
       this.mapProperty();
       this.housingService.addProperty(this.property);
-      this.alertify.success(
+      this.toastr.success(
         'Congrats, your property listed successfully on our website'
       );
       console.log(this.addPropertyForm);
@@ -217,7 +217,7 @@ export class AddPropertyComponent implements OnInit {
         this.router.navigate(['/']);
       }
     } else {
-      this.alertify.error(
+      this.toastr.error(
         'Please review the form and provide all valid entries'
       );
     }

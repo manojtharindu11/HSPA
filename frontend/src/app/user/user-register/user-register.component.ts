@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/model/user';
-import { AlertifyService } from 'src/app/services/alertify.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class UserRegisterComponent implements OnInit {
   registrationForm!: FormGroup;
   user!:User;
 
-  constructor(private fb:FormBuilder,private userService:UserService,private alertify:AlertifyService) {}
+  constructor(private fb:FormBuilder,private userService:UserService,private toastr:ToastrService) {}
 
   ngOnInit(): void {
 
@@ -83,11 +83,11 @@ export class UserRegisterComponent implements OnInit {
   onSubmit() {
     if (this.registrationForm.valid) {
       this.userService.addUsers(this.userData());
-      this.alertify.success("Congrats, You are successfully registered!")
+      this.toastr.success("Congrats, You are successfully registered!")
       this.registrationForm.reset();
     } else {
       this.registrationForm.markAllAsTouched();
-      this.alertify.error("Kindly provide the required field!")
+      this.toastr.error("Kindly provide the required field!")
     }
 
   }
