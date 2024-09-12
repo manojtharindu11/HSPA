@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using web_api.Data;
 
 namespace web_api.Controllers
 {
@@ -7,10 +8,22 @@ namespace web_api.Controllers
     [ApiController]
     public class CityController : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private  readonly DataContext _dataContext;
+
+        public CityController(DataContext dataContext)
         {
-            return new string[] { "Atlanta", "New York" };
+            _dataContext = dataContext;
+        }
+
+        [HttpGet]
+        public IActionResult GetCities()
+        {
+            var cities = _dataContext.Cities.ToList();
+            if (cities.Any())
+            {
+                return Ok(cities);
+            }
+            return BadRequest("Cities not found");
         }
 
         [HttpGet("{id}")]
