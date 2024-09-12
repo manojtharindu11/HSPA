@@ -24,7 +24,7 @@ export class AddPropertyComponent implements OnInit {
   addPropertyForm!: FormGroup;
   nextClicked!: boolean;
   property = new Property();
-  cityList:string[] = [];
+  cityList:any[] = [];
 
   // Will come from masters
   propertyTypes: Array<string> = ['House', 'Apartment', 'Duplex'];
