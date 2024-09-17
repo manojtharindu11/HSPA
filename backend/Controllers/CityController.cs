@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using web_api.Data.Repo;
+using web_api.Interfaces;
 using web_api.Models;
 
 namespace web_api.Controllers
@@ -8,17 +8,17 @@ namespace web_api.Controllers
     [ApiController]
     public class CityController : ControllerBase
     {
-        private readonly ICityReopository _cityReopository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CityController(ICityReopository cityReopository)
+        public CityController(IUnitOfWork unitOfWork)
         {
-            _cityReopository = cityReopository;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetCities()
         {
-            var cities = await _cityReopository.GetCitiesAsync();
+            var cities = await _unitOfWork.cityReopository.GetCitiesAsync();
             if (cities.Any())
             {
                 return Ok(cities);
@@ -39,8 +39,8 @@ namespace web_api.Controllers
         {
             City city = new City();
             city.Name = cityName;
-            _cityReopository.AddCity(city);
-            await _cityReopository.SaveAsync();
+            _unitOfWork.cityReopository.AddCity(city);
+            await _unitOfWork.SaveAsync();
             return Ok(city);
         }
 
@@ -49,8 +49,8 @@ namespace web_api.Controllers
 
         public async Task<IActionResult> AddCity(City city)
         {
-            _cityReopository.AddCity(city);
-            await _cityReopository.SaveAsync();
+            _unitOfWork.cityReopository.AddCity(city);
+            await _unitOfWork.SaveAsync();
             return StatusCode(201);
         }
 
@@ -59,8 +59,8 @@ namespace web_api.Controllers
 
         public async Task<IActionResult> DeleteCity(int id)
         {
-            _cityReopository.DeleteCity(id);
-            await _cityReopository.SaveAsync();
+            _unitOfWork.cityReopository.DeleteCity(id);
+            await _unitOfWork.SaveAsync();
             return Ok(id);
         }
     }
