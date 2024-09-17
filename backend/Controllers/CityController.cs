@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using web_api.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using web_api.Data.Repo;
 using web_api.Models;
 
 namespace web_api.Controllers
@@ -10,17 +8,17 @@ namespace web_api.Controllers
     [ApiController]
     public class CityController : ControllerBase
     {
-        private  readonly DataContext _dataContext;
+        private readonly ICityReopository _cityReopository;
 
-        public CityController(DataContext dataContext)
+        public CityController(ICityReopository cityReopository)
         {
-            _dataContext = dataContext;
+            _cityReopository = cityReopository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetCities()
         {
-            var cities = await _dataContext.Cities.ToListAsync();
+            var cities = await _cityReopository.GetCitiesAsync();
             if (cities.Any())
             {
                 return Ok(cities);
@@ -41,8 +39,8 @@ namespace web_api.Controllers
         {
             City city = new City();
             city.Name = cityName;
-            await _dataContext.Cities.AddAsync(city);
-            await _dataContext.SaveChangesAsync();
+            _cityReopository.AddCity(city);
+            await _cityReopository.SaveAsync();
             return Ok(city);
         }
 
@@ -51,9 +49,9 @@ namespace web_api.Controllers
 
         public async Task<IActionResult> AddCity(City city)
         {
-            await _dataContext.Cities.AddAsync(city);
-            await _dataContext.SaveChangesAsync();
-            return Ok(city);
+            _cityReopository.AddCity(city);
+            await _cityReopository.SaveAsync();
+            return StatusCode(201);
         }
 
         [HttpDelete("delete{id}")]
@@ -61,10 +59,9 @@ namespace web_api.Controllers
 
         public async Task<IActionResult> DeleteCity(int id)
         {
-            var city = await _dataContext.Cities.FindAsync(id);
-            _dataContext.Cities.Remove(city);
-            await _dataContext.SaveChangesAsync();
-            return Ok(city);
+            _cityReopository.DeleteCity(id);
+            await _cityReopository.SaveAsync();
+            return Ok(id);
         }
     }
 }
