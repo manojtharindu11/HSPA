@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using web_api.Data.Repo;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using web_api.DTOs;
+using web_api.Interfaces;
 using web_api.Models;
 
 namespace web_api.Controllers
@@ -8,20 +10,32 @@ namespace web_api.Controllers
     [ApiController]
     public class CityController : ControllerBase
     {
-        private readonly ICityReopository _cityReopository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper mapper;
 
-        public CityController(ICityReopository cityReopository)
+        public CityController(IUnitOfWork unitOfWork,IMapper mapper)
         {
-            _cityReopository = cityReopository;
+            _unitOfWork = unitOfWork;
+            this.mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetCities()
         {
-            var cities = await _cityReopository.GetCitiesAsync();
-            if (cities.Any())
+            var cities = await _unitOfWork.cityReopository.GetCitiesAsync();
+
+            var citiesDTO = mapper.Map<IEnumerable<City>>(cities);
+
+            //var citiesDTO = from c in cities
+            //                select new CityDTO()
+            //                {
+            //                    Id = c.Id,
+            //                    Name = c.Name,
+            //                };
+
+            if (citiesDTO.Any())
             {
-                return Ok(cities);
+                return Ok(citiesDTO);
             }
             return BadRequest("Cities not found");
         }
@@ -32,25 +46,36 @@ namespace web_api.Controllers
             return "Atlanta";
         }
 
-        [HttpPost("add")]
-        [HttpPost("add/{cityName}")]
+        //[HttpPost("add")]
+        //[HttpPost("add/{cityName}")]
 
-        public async Task<IActionResult> AddCity(string cityName)
-        {
-            City city = new City();
-            city.Name = cityName;
-            _cityReopository.AddCity(city);
-            await _cityReopository.SaveAsync();
-            return Ok(city);
-        }
+        //public async Task<IActionResult> AddCity(string cityName)
+        //{
+        //    City city = new City();
+        //    city.Name = cityName;
+        //    _unitOfWork.cityReopository.AddCity(city);
+        //    await _unitOfWork.SaveAsync();
+        //    return Ok(city);
+        //}
 
         [HttpPost("post")]
 
 
-        public async Task<IActionResult> AddCity(City city)
+        public async Task<IActionResult> AddCity(CityDTO cityDto)
         {
-            _cityReopository.AddCity(city);
-            await _cityReopository.SaveAsync();
+            //var city = new City
+            //{
+            //    Name = cityDto.Name,
+            //    LastUpdatedBy = 1,
+            //    LastUpdatedOn = DateTime.Now
+            //};
+
+            var city = mapper.Map<City>(cityDto);
+            city.LastUpdatedBy = 1;
+            city.LastUpdatedOn = DateTime.Now;
+
+            _unitOfWork.cityReopository.AddCity(city);
+            await _unitOfWork.SaveAsync();
             return StatusCode(201);
         }
 
@@ -59,8 +84,8 @@ namespace web_api.Controllers
 
         public async Task<IActionResult> DeleteCity(int id)
         {
-            _cityReopository.DeleteCity(id);
-            await _cityReopository.SaveAsync();
+            _unitOfWork.cityReopository.DeleteCity(id);
+            await _unitOfWork.SaveAsync();
             return Ok(id);
         }
     }
