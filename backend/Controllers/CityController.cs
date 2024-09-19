@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Azure;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using web_api.DTOs;
 using web_api.Interfaces;
@@ -24,7 +26,7 @@ namespace web_api.Controllers
         {
             var cities = await _unitOfWork.cityReopository.GetCitiesAsync();
 
-            var citiesDTO = mapper.Map<IEnumerable<City>>(cities);
+            var citiesDTO = mapper.Map<IEnumerable<CityDTO>>(cities);
 
             //var citiesDTO = from c in cities
             //                select new CityDTO()
@@ -59,8 +61,6 @@ namespace web_api.Controllers
         //}
 
         [HttpPost("post")]
-
-
         public async Task<IActionResult> AddCity(CityDTO cityDto)
         {
             //var city = new City
@@ -79,9 +79,59 @@ namespace web_api.Controllers
             return StatusCode(201);
         }
 
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> UpdateCity(int id, CityDTO cityDto)
+        {
+            var cityFromDB = await _unitOfWork.cityReopository.FindCity(id);
+            cityFromDB.LastUpdatedBy = 1;
+            cityFromDB.LastUpdatedOn = DateTime.Now;
+            mapper.Map(cityDto, cityFromDB);
+            await _unitOfWork.SaveAsync();
+            return StatusCode(200);
+        }
+
+        [HttpPut("updateName/{id}")]
+        public async Task<IActionResult> UpdateCityName(int id, CityUpdateDTO cityDto)
+        {
+            var cityFromDB = await _unitOfWork.cityReopository.FindCity(id);
+            cityFromDB.LastUpdatedBy = 1;
+            cityFromDB.LastUpdatedOn = DateTime.Now;
+            mapper.Map(cityDto, cityFromDB);
+            await _unitOfWork.SaveAsync();
+            return StatusCode(200);
+        }
+
+        //[HttpPatch("update/{id}")]
+        //public async Task<IActionResult> UpdateCityPatch(int id, [FromBody] JsonPatchDocument<City> cityToPatch)
+        //{
+        //    // Find the city in the database
+        //    var cityFromDB = await _unitOfWork.cityReopository.FindCity(id);
+
+        //    // If the city doesn't exist, return 404 Not Found
+        //    if (cityFromDB == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    cityToPatch.ApplyTo(cityFromDB, ModelState);
+
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    cityFromDB.LastUpdatedBy = 1;  // Set the user who updated the entity
+        //    cityFromDB.LastUpdatedOn = DateTime.Now;  // Set the current time as last updated time
+
+        //    await _unitOfWork.SaveAsync();
+
+        //    return Ok();
+        //}
+
+
+
+
         [HttpDelete("delete{id}")]
-
-
         public async Task<IActionResult> DeleteCity(int id)
         {
             _unitOfWork.cityReopository.DeleteCity(id);
