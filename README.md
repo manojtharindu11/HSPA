@@ -1,4 +1,4 @@
 - Add github workflows to auto deploy to firebase
-- https://hspa-angular-16.web.app/ host link
+- https://hspa-angular-16.web.app/ host link https://hspa-angular-16.firebaseapp.com/
 - angular route resolver
 - auto mapper 
