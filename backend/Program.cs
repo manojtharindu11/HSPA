@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 using web_api.Data;
+using web_api.Extentions;
 using web_api.Helpers;
 using web_api.Interfaces;
 
@@ -21,12 +24,7 @@ var app = builder.Build();
 
 app.UseCors(m => m.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.ConfigureExceptionHandler(app.Environment);
 
 app.UseHttpsRedirection();
 
