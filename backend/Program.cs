@@ -5,6 +5,7 @@ using web_api.Data;
 using web_api.Extentions;
 using web_api.Helpers;
 using web_api.Interfaces;
+using web_api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +25,9 @@ var app = builder.Build();
 
 app.UseCors(m => m.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
-app.ConfigureExceptionHandler(app.Environment);
+//app.ConfigureExceptionHandler(app.Environment);
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
