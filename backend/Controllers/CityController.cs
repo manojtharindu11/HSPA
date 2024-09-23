@@ -24,6 +24,7 @@ namespace web_api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCities()
         {
+            throw new UnauthorizedAccessException();
             var cities = await _unitOfWork.cityReopository.GetCitiesAsync();
 
             var citiesDTO = mapper.Map<IEnumerable<CityDTO>>(cities);
@@ -82,12 +83,33 @@ namespace web_api.Controllers
         [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateCity(int id, CityDTO cityDto)
         {
-            var cityFromDB = await _unitOfWork.cityReopository.FindCity(id);
-            cityFromDB.LastUpdatedBy = 1;
-            cityFromDB.LastUpdatedOn = DateTime.Now;
-            mapper.Map(cityDto, cityFromDB);
-            await _unitOfWork.SaveAsync();
-            return StatusCode(200);
+            try
+            {
+                if (id != cityDto.Id)
+                {
+                    return BadRequest("Update not allowed");
+
+                }
+
+                var cityFromDB = await _unitOfWork.cityReopository.FindCity(id);
+
+                if (cityFromDB == null)
+                    return BadRequest("Update not allowed");
+
+
+                cityFromDB.LastUpdatedBy = 1;
+                cityFromDB.LastUpdatedOn = DateTime.Now;
+                mapper.Map(cityDto, cityFromDB);
+
+
+                throw new Exception("Unknown error occured");
+                await _unitOfWork.SaveAsync();
+                return StatusCode(200);
+
+            } catch
+            {
+                return StatusCode(500, "Some unknow error occured");
+            }
         }
 
         [HttpPut("updateName/{id}")]
