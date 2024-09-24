@@ -1,11 +1,17 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using System.Net;
+using web_api.Middlewares;
 
 namespace web_api.Extentions
 {
     public static class ExceptionMiddlewareExtensions
     {
-        public static void ConfigureExceptionHandler(this IApplicationBuilder app, IWebHostEnvironment env)
+
+        public static void ConfigureExceptionHandler(this ApplicationBuilder app, IWebHostEnvironment env   )
+        {
+            app.UseMiddleware<ExceptionMiddleware>();
+        }
+        public static void ConfigureBuiltingExceptionHandler(this IApplicationBuilder app, IWebHostEnvironment env)
         {
             // Configure the HTTP request pipeline.
             if (env.IsDevelopment())
