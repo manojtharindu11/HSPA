@@ -1,6 +1,6 @@
 ﻿namespace web_api.DTOs
 {
-    public class CityUpdateDTO
+    public class CityUpdateDto
     {
         public string Name { get; set; }
     }

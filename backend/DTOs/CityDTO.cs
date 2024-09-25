@@ -2,7 +2,7 @@
 
 namespace web_api.DTOs
 {
-    public class CityDTO
+    public class CityDto
     {
         public int Id { get; set; }
         [Required(ErrorMessage ="Name is mandatory field")]
