@@ -1,5 +1,5 @@
-﻿using web_api.Data.Repo;
-using web_api.Interfaces;
+﻿using web_api.Interfaces;
+using web_api.Repo;
 
 namespace web_api.Data
 {
@@ -12,6 +12,8 @@ namespace web_api.Data
             _dataContext = dataContext;
         }
         public ICityReopository cityReopository => new CityRepository(_dataContext);
+
+        public IUserRepository userRepository => new UserRepository(_dataContext);
 
         public async Task<bool> SaveAsync()
         {
