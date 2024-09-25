@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using web_api.Data;
 using web_api.Interfaces;
 using web_api.Models;
 
-namespace web_api.Data.Repo
+namespace web_api.Repo
 {
     public class CityRepository : ICityReopository
     {
