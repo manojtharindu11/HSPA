@@ -25,7 +25,7 @@ namespace web_api.Controllers
             throw new UnauthorizedAccessException();
             var cities = await _unitOfWork.cityReopository.GetCitiesAsync();
 
-            var citiesDTO = mapper.Map<IEnumerable<CityDTO>>(cities);
+            var citiesDTO = mapper.Map<IEnumerable<CityDto>>(cities);
 
             //var citiesDTO = from c in cities
             //                select new CityDTO()
@@ -60,7 +60,7 @@ namespace web_api.Controllers
         //}
 
         [HttpPost("post")]
-        public async Task<IActionResult> AddCity(CityDTO cityDto)
+        public async Task<IActionResult> AddCity(CityDto cityDto)
         {
             //var city = new City
             //{
@@ -79,7 +79,7 @@ namespace web_api.Controllers
         }
 
         [HttpPut("update/{id}")]
-        public async Task<IActionResult> UpdateCity(int id, CityDTO cityDto)
+        public async Task<IActionResult> UpdateCity(int id, CityDto cityDto)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace web_api.Controllers
         }
 
         [HttpPut("updateName/{id}")]
-        public async Task<IActionResult> UpdateCityName(int id, CityUpdateDTO cityDto)
+        public async Task<IActionResult> UpdateCityName(int id, CityUpdateDto cityDto)
         {
             var cityFromDB = await _unitOfWork.cityReopository.FindCity(id);
             cityFromDB.LastUpdatedBy = 1;
