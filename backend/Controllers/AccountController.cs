@@ -23,6 +23,20 @@ namespace web_api.Controllers
             this.configuration = configuration;
         }
 
+        //api/acount/register
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(LoginReqDto loginReqDto)
+        {
+            if (await unitOfWork.userRepository.UserAlreadyExist(loginReqDto.Username))
+            {
+                return BadRequest("User already exists, Please try something else");
+            }
+
+            unitOfWork.userRepository.Register(loginReqDto.Username, loginReqDto.Password);
+            await unitOfWork.SaveAsync();
+            return StatusCode(201);
+        }
+
         //api/acount/login
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginReqDto loginReqDto)
