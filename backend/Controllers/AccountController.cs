@@ -15,10 +15,12 @@ namespace web_api.Controllers
     public class AccountController : BaseController
     {
         private readonly IUnitOfWork unitOfWork;
+        private readonly IConfiguration configuration;
 
-        public AccountController(IUnitOfWork unitOfWork)
+        public AccountController(IUnitOfWork unitOfWork,IConfiguration configuration)
         {
             this.unitOfWork = unitOfWork;
+            this.configuration = configuration;
         }
 
         //api/acount/login
@@ -41,7 +43,8 @@ namespace web_api.Controllers
 
         private string CreateJWT(User user)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("shhh... this is my top secreat. HII i am manoj hii hii hiii hii"));
+            var secreateKey = configuration.GetSection("AppSettings:Key").Value;
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secreateKey));
 
             var clams = new Claim[]
             {
