@@ -20,7 +20,7 @@ namespace web_api.Controllers
             _unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
-        //[AllowAnonymous]
+        [AllowAnonymous]
         [HttpGet]
 
         public async Task<IActionResult> GetCities()
