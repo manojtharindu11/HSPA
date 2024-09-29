@@ -45,7 +45,7 @@ namespace web_api.Controllers
 
             if (user == null)
             {
-                return Unauthorized();
+                return Unauthorized("Invalid userId or password!");
             }
 
             var loginResDto = new LoginResDto();
