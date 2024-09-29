@@ -86,10 +86,6 @@ export class UserRegisterComponent implements OnInit {
         next:() => {
           this.registrationForm.reset();
           this.toastr.success("Congrats, You are successfully registered!")
-        },
-        error: (err:any) => {
-          this.toastr.error(err.error)
-          console.log(err.error);
         }
       })
     } else {

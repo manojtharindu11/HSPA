@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { Routes,RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -24,6 +24,7 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { FilterPipe } from './pipes/filter.pipe';
 import { SortPipe } from './pipes/sort.pipe';
 import { ToastrModule } from 'ngx-toastr';
+import { HttpErrorInterceptor } from './services/http-error.interceptor';
 
 
 
@@ -65,7 +66,12 @@ const appRoutes: Routes = [
     })
   ],
   providers: [
-    HousingService
+    HousingService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
