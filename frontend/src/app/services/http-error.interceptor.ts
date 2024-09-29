@@ -19,10 +19,25 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     return next.handle(request)
                 .pipe(
                   catchError((err:HttpErrorResponse) => {
+                    const errorMessage = this.setError(err);
                     console.log(err)
-                    this.toastr.error(err.error);
-                    return throwError(err.error)                
+                    this.toastr.error(errorMessage);
+                    return throwError(errorMessage)                
                   })
                 )
+  }
+
+  setError(error: HttpErrorResponse): string {
+    let errorMessage = 'Unknown error occurred'
+
+    if (error.error instanceof ErrorEvent) {
+      // Client side error
+      errorMessage = error.error.message;
+    } else {
+      // Server side error
+      if (error.status != 0)
+        errorMessage = error.error.errorMessage;
+    }
+    return errorMessage;
   }
 }

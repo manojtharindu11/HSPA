@@ -5,6 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using web_api.DTOs;
+using web_api.Error;
 using web_api.Interfaces;
 using web_api.Models;
 
@@ -43,9 +44,15 @@ namespace web_api.Controllers
         {
             var user = await unitOfWork.userRepository.Authenticate(loginReqDto.Username, loginReqDto.Password);
 
+            ApiError apiError = new ApiError();
+
+
             if (user == null)
             {
-                return Unauthorized("Invalid UserId or Password");
+                apiError.ErrorCode = Unauthorized().StatusCode;
+                apiError.ErrorMessage = "Invalid UserId or Password";
+                apiError.ErrorDetails = "This error appear when provided user id or password does not exists";
+                return Unauthorized(apiError);
             }
 
             var loginResDto = new LoginResDto();
