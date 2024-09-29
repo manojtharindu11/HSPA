@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
 using web_api.Data;
+using web_api.DTOs;
 using web_api.Interfaces;
 using web_api.Models;
 
@@ -48,18 +49,20 @@ namespace web_api.Repo
             }
         }
 
-        public void Register(string username, string password)
+        public void Register(UserRegistrationDto registrationDto)
         {
             byte[] passwordHash, passwordKey;
 
             using( var hmac = new HMACSHA512())
             {
                 passwordKey = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(registrationDto.Password));
             }
 
             User user = new User();
-            user.UserName = username;
+            user.UserName = registrationDto.Username;
+            user.Email = registrationDto.Email;
+            user.Mobile = registrationDto.Mobile;
             user.Password = passwordHash;
             user.PasswordKey = passwordKey;
 
