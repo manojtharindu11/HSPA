@@ -1,4 +1,5 @@
-﻿using web_api.Models;
+﻿using web_api.DTOs;
+using web_api.Models;
 
 namespace web_api.Interfaces
 {
@@ -6,7 +7,7 @@ namespace web_api.Interfaces
     {
         Task<User> Authenticate(string username, string password);
 
-        void Register(string username, string password);
+        void Register(UserRegistrationDto registrationDto);
         Task<bool> UserAlreadyExist(string username);
 
 

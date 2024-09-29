@@ -25,14 +25,14 @@ namespace web_api.Controllers
 
         //api/acount/register
         [HttpPost("register")]
-        public async Task<IActionResult> Register(LoginReqDto loginReqDto)
+        public async Task<IActionResult> Register(UserRegistrationDto registrationDto)
         {
-            if (await unitOfWork.userRepository.UserAlreadyExist(loginReqDto.Username))
+            if (await unitOfWork.userRepository.UserAlreadyExist(registrationDto.Username))
             {
                 return BadRequest("User already exists, Please try something else");
             }
 
-            unitOfWork.userRepository.Register(loginReqDto.Username, loginReqDto.Password);
+            unitOfWork.userRepository.Register(registrationDto);
             await unitOfWork.SaveAsync();
             return StatusCode(201);
         }
@@ -45,7 +45,7 @@ namespace web_api.Controllers
 
             if (user == null)
             {
-                return Unauthorized("Invalid userId or password!");
+                return Unauthorized("Invalid UserId or Password");
             }
 
             var loginResDto = new LoginResDto();
