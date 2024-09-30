@@ -11,15 +11,15 @@ import { IPropertyBase } from "src/app/model/iPropertyBase";
 export class PropertyCardComponent {
 @Input() hideIcon?: boolean
 @Input() property : IPropertyBase = {
-    Id: 0,
-    SellRent: 1,
-    Name: "",
-    PType: "",
-    Price: 0,
-    FType: "",
-    BHK: 0,
-    BuiltArea: 0,
-    City: "",
-    RTM: 0
+    id: 0,
+    sellRent: 1,
+    name: "",
+    propertyType: "",
+    price: 0,
+    furnishingType: "",
+    bhk: 0,
+    builtArea: 0,
+    city: "",
+    readyToMove: 0
 };
 }
