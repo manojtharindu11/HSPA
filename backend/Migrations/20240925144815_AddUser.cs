@@ -10,7 +10,6 @@ namespace web_api.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql(@"UPDATE [dbo].[Cities] SET [Country]='USA' WHERE [Country] IS ''");
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new

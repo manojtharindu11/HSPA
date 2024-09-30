@@ -14,45 +14,46 @@ export class HousingService {
   constructor(private http: HttpClient) { }
 
   getProperty(id:number) {
-    return this.getAllProperties().pipe(
-      map(propertyArray => {
-        // throw new Error("Some error")
-        return propertyArray.find(p=> p.Id == id)
-      })
-    )
+    return this.http.get<Property>(this.baseUrl+"/property/detail/"+id.toString());
   }
 
-  getAllProperties(sellRent?:number): Observable<Property[]> {
-    return this.http.get('data/properties.json').pipe(
-      map((data: any) => {
-        const propertiesArray: Array<Property> = [];
-        const localProperties = localStorage.getItem('newProp')
-        if(localProperties) {
-          const properties = JSON.parse(localProperties)
-          for(const id in properties) {
-            if(sellRent) {
-              if (properties.hasOwnProperty(id) && properties[id].SellRent === sellRent) {
-                propertiesArray.push(properties[id]);
-              } else {
-                propertiesArray.push(properties[id]);
-              }
-            }
-          }
-        }
-
-        for(const id in data) {
-          if(sellRent) {
-            if (data.hasOwnProperty(id) && data[id].SellRent === sellRent) {
-              propertiesArray.push(data[id]);
-            }
-          } else {
-            propertiesArray.push(data[id]);
-          }
-        }
-        return propertiesArray;
-      })
-    );
+  // Get properties from database
+  getAllProperties(sellRent?:number) : Observable<Property[]> {
+    return this.http.get<Property[]>(this.baseUrl+"/property/list/"+sellRent?.toString())
   }
+
+  // Get properties from local storage
+  // getAllProperties(sellRent?:number): Observable<Property[]> {
+  //   return this.http.get('data/properties.json').pipe(
+  //     map((data: any) => {
+  //       const propertiesArray: Array<Property> = [];
+  //       const localProperties = localStorage.getItem('newProp')
+  //       if(localProperties) {
+  //         const properties = JSON.parse(localProperties)
+  //         for(const id in properties) {
+  //           if(sellRent) {
+  //             if (properties.hasOwnProperty(id) && properties[id].SellRent === sellRent) {
+  //               propertiesArray.push(properties[id]);
+  //             } else {
+  //               propertiesArray.push(properties[id]);
+  //             }
+  //           }
+  //         }
+  //       }
+
+  //       for(const id in data) {
+  //         if(sellRent) {
+  //           if (data.hasOwnProperty(id) && data[id].SellRent === sellRent) {
+  //             propertiesArray.push(data[id]);
+  //           }
+  //         } else {
+  //           propertiesArray.push(data[id]);
+  //         }
+  //       }
+  //       return propertiesArray;
+  //     })
+  //   );
+  // }
 
   addProperty(property:Property) {
     let newProp = [property]
@@ -76,6 +77,29 @@ export class HousingService {
       localStorage.setItem('PID','101');
       return 101
     }
+  }
+
+  getPropertyAge(dateOfEstablishment:Date): string {
+    const today = new Date();
+    const estDate = new Date(dateOfEstablishment);
+    let age = today.getFullYear() - estDate.getFullYear();
+    const m = today.getMonth() - estDate.getMonth();
+
+    // Current month smaller than establishment month or same month but current date smaller than establishment date
+    if (m < 0 || (m === 0 && today.getDate() < estDate.getDate())) {
+      age--;
+    }
+
+    //Establishment date is future date
+    if (today < estDate) {
+      return '0';
+    }
+
+    if (age === 0) {
+      return "Less than a year"
+    }
+
+    return age.toString();
   }
 
   getAllCities(): Observable<string[]> {

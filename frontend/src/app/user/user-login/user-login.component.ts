@@ -27,10 +27,6 @@ export class UserLoginComponent {
         } else {
           this.toastr.error("User Name or Password is wrong")
         }
-      },
-      error: (err:any) => {
-        console.log(err)
-        this.toastr.error(err.error);
       }
     })
 
