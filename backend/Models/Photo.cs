@@ -1,9 +1,14 @@
-﻿namespace web_api.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace web_api.Models
 {
-    public class Photo
+    public class Photo : BaseEntity
     {
-        public int Id { get; set; }
+        [Required]
         public string ImageUrl { get; set; }
         public bool IsPrimary { get; set; }
+
+        public int PropertyId { get; set; }
+        public Property Property { get; set; }
     }
 }

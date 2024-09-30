@@ -2,7 +2,7 @@
 
 namespace web_api.Models
 {
-    public class FurnishingType : BaseEntity
+    public class PropertyType : BaseEntity
     {
         [Required]
         public string Name { get; set; }
