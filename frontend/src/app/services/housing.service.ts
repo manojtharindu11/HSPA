@@ -79,6 +79,29 @@ export class HousingService {
     }
   }
 
+  getPropertyAge(dateOfEstablishment:Date): string {
+    const today = new Date();
+    const estDate = new Date(dateOfEstablishment);
+    let age = today.getFullYear() - estDate.getFullYear();
+    const m = today.getMonth() - estDate.getMonth();
+
+    // Current month smaller than establishment month or same month but current date smaller than establishment date
+    if (m < 0 || (m === 0 && today.getDate() < estDate.getDate())) {
+      age--;
+    }
+
+    //Establishment date is future date
+    if (today < estDate) {
+      return '0';
+    }
+
+    if (age === 0) {
+      return "Less than a year"
+    }
+
+    return age.toString();
+  }
+
   getAllCities(): Observable<string[]> {
     return this.http.get<string[]>(this.baseUrl+'/city/cities')
   }

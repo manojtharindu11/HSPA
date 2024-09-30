@@ -245,7 +245,7 @@ export class AddPropertyComponent implements OnInit {
     this.property.builtArea = this.BuiltArea.value;
     this.property.carpetArea = this.CarpetArea.value;
     this.property.floorNo = this.FloorNo.value;
-    this.property.totalFloor = this.TotalFloor.value;
+    this.property.totalFloors = this.TotalFloor.value;
     this.property.address = this.Address.value;
     this.property.address2 = this.LandMark.value;
     this.property.readyToMove = this.RTM.value;

@@ -26,6 +26,12 @@ export class PropertyDetailComponent implements OnInit {
         }
       )
 
+      if (this.property.estPossessionOn) {
+        this.property.age = this.housingService.getPropertyAge(this.property.estPossessionOn);
+      } else {
+        this.property.age = undefined;  // or some default value if needed
+      }
+      
       // this.housingService.getProperty(this.propertyId).subscribe(
       //   (data)=> {
       //     if (data) {

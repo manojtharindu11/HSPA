@@ -14,7 +14,7 @@ export class Property implements IPropertyBase {
   address2?: string;
   city: string = '';
   floorNo?: string;
-  totalFloor?: string;
+  totalFloors?: string;
   readyToMove: number = 0;
   age?: string;
   mainEntrance?: string;
