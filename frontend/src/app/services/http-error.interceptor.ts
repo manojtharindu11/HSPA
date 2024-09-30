@@ -19,14 +19,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     return next.handle(request)
                 .pipe(
                   // retry(10),
-                  retryWhen(error=> error.pipe(
-                    concatMap((checkErr: HttpErrorResponse,count: number) => {
-                      if (checkErr.status === 0 && count<= 10) {
-                        return of(checkErr);
-                      }
-                      return throwError(checkErr)
-                    })
-                  )),
+                  retryWhen(error=> this.retryRequest(error,10)),
                   catchError((err:HttpErrorResponse) => {
                     const errorMessage = this.setError(err);
                     console.log(err)
@@ -34,6 +27,20 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                     return throwError(errorMessage)                
                   })
                 )
+  }
+
+
+  // Retry the request incase of error
+  retryRequest(error : Observable<HttpErrorResponse>, retryCount:number) :Observable<HttpErrorResponse> {
+    return error.pipe(
+      concatMap((checkErr: HttpErrorResponse, count: number) => {
+        // Retry incase WebAPI is down
+        if (checkErr.status === 0 && count<= retryCount) {
+          return of(checkErr);
+        }
+        return throwError(checkErr)
+      })
+    )
   }
 
   setError(error: HttpErrorResponse): string {
