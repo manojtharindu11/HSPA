@@ -36,13 +36,13 @@ namespace web_api.Repo
 
         public async Task<Property> GetPropertyDetailAsync(int id)
         {
-            var properties = await dataContext.Properties
+            var property = await dataContext.Properties
                 .Include(p => p.PropertyType)
                 .Include(p => p.City)
                 .Include(p => p.FurnishingType)
                 .Where(p => p.Id == id)
                 .FirstAsync();
-            return properties;
+            return property;
         }
     }
 }

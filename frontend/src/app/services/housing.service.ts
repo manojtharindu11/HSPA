@@ -14,12 +14,7 @@ export class HousingService {
   constructor(private http: HttpClient) { }
 
   getProperty(id:number) {
-    return this.getAllProperties().pipe(
-      map(propertyArray => {
-        // throw new Error("Some error")
-        return propertyArray.find(p=> p.id == id)
-      })
-    )
+    return this.http.get<Property>(this.baseUrl+"/property/detail/"+id.toString());
   }
 
   // Get properties from database

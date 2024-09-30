@@ -2,3 +2,5 @@
 - https://hspa-angular-16.web.app/ host link
 - angular route resolver
 - auto mapper 
+- retry when status code is zero
+- repository pattern
