@@ -18,7 +18,7 @@ namespace web_api.Controllers
         private readonly IUnitOfWork unitOfWork;
         private readonly IConfiguration configuration;
 
-        public AccountController(IUnitOfWork unitOfWork,IConfiguration configuration)
+        public AccountController(IUnitOfWork unitOfWork, IConfiguration configuration)
         {
             this.unitOfWork = unitOfWork;
             this.configuration = configuration;
@@ -28,8 +28,18 @@ namespace web_api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserRegistrationDto registrationDto)
         {
-
             ApiError apiError = new ApiError();
+
+            if (string.IsNullOrEmpty(registrationDto.Username.Trim()) ||
+                string.IsNullOrEmpty(registrationDto.Password.Trim()) ||
+                string.IsNullOrEmpty(registrationDto.Email.Trim()) ||
+                string.IsNullOrEmpty(registrationDto.Mobile.Trim()))
+            {
+                apiError.ErrorMessage = "Username, password, email or mobile can not be blank";
+                apiError.ErrorCode = BadRequest().StatusCode;
+                return BadRequest(apiError);
+            }
+
 
             if (await unitOfWork.userRepository.UserAlreadyExist(registrationDto.Username))
             {
@@ -78,7 +88,7 @@ namespace web_api.Controllers
                 new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
             };
 
-            var signingCredentials = new SigningCredentials(key,SecurityAlgorithms.HmacSha256Signature);
+            var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
