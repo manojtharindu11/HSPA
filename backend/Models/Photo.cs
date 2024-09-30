@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace web_api.Models
 {
+    [Table("Photos")]
     public class Photo : BaseEntity
     {
         [Required]

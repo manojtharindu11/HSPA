@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using web_api.Data;
 
@@ -11,9 +12,11 @@ using web_api.Data;
 namespace web_api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240930064930_AddBaseEntityToProperty")]
+    partial class AddBaseEntityToProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -138,7 +141,7 @@ namespace web_api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("EstPossessionOn")
+                    b.Property<DateTime>("EstPossessionOn")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("FloorNo")
@@ -188,7 +191,10 @@ namespace web_api.Migrations
                     b.Property<int>("SellRent")
                         .HasColumnType("int");
 
-                    b.Property<int>("TotalFloors")
+                    b.Property<int>("TotalFoolrs")
+                        .HasColumnType("int");
+
+                    b.Property<int>("userId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -197,9 +203,9 @@ namespace web_api.Migrations
 
                     b.HasIndex("FurnishingTypeId");
 
-                    b.HasIndex("PostedBy");
-
                     b.HasIndex("PropertyTypeId");
+
+                    b.HasIndex("userId");
 
                     b.ToTable("Properties");
                 });
@@ -279,37 +285,37 @@ namespace web_api.Migrations
 
             modelBuilder.Entity("web_api.Models.Property", b =>
                 {
-                    b.HasOne("web_api.Models.City", "City")
+                    b.HasOne("web_api.Models.City", "city")
                         .WithMany()
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("web_api.Models.FurnishingType", "FurnishingType")
+                    b.HasOne("web_api.Models.FurnishingType", "furnishingType")
                         .WithMany()
                         .HasForeignKey("FurnishingTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("web_api.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("PostedBy")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("web_api.Models.PropertyType", "PropertyType")
+                    b.HasOne("web_api.Models.PropertyType", "propertyType")
                         .WithMany()
                         .HasForeignKey("PropertyTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("City");
+                    b.HasOne("web_api.Models.User", "user")
+                        .WithMany()
+                        .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("FurnishingType");
+                    b.Navigation("city");
 
-                    b.Navigation("PropertyType");
+                    b.Navigation("furnishingType");
 
-                    b.Navigation("User");
+                    b.Navigation("propertyType");
+
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("web_api.Models.Property", b =>

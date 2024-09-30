@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using web_api.DTOs;
 using web_api.Error;
+using web_api.Extentions;
 using web_api.Interfaces;
 using web_api.Models;
 
@@ -30,10 +31,10 @@ namespace web_api.Controllers
         {
             ApiError apiError = new ApiError();
 
-            if (string.IsNullOrEmpty(registrationDto.Username.Trim()) ||
-                string.IsNullOrEmpty(registrationDto.Password.Trim()) ||
-                string.IsNullOrEmpty(registrationDto.Email.Trim()) ||
-                string.IsNullOrEmpty(registrationDto.Mobile.Trim()))
+            if (registrationDto.Username.IsEmpty() ||
+                registrationDto.Password.IsEmpty() ||
+                registrationDto.Email.IsEmpty() ||
+                registrationDto.Mobile.IsEmpty())
             {
                 apiError.ErrorMessage = "Username, password, email or mobile can not be blank";
                 apiError.ErrorCode = BadRequest().StatusCode;
