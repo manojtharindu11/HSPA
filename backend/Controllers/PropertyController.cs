@@ -19,13 +19,22 @@ namespace web_api.Controllers
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
-        [HttpGet("type/{sellRent}")]
+        [HttpGet("list/{sellRent}")]
         [AllowAnonymous]
         public async Task<IActionResult> GetPropertyList(int sellRent)
         {
             var properties = await unitOfWork.propertyRepository.GetAllPropertiesAsync(sellRent);
             var propertyLIstDto = mapper.Map<IEnumerable<PropertyListDto>>(properties);
             return Ok(propertyLIstDto);
+        }
+
+        [HttpGet("detail/{id}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetPropertyDetail(int id)
+        {
+            var property = await unitOfWork.propertyRepository.GetPropertyDetailAsync(id);
+            var propertyDto = mapper.Map<PropertyDetailDto>(property);
+            return Ok(propertyDto);
         }
     }
 }

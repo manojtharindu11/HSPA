@@ -6,6 +6,8 @@ namespace web_api.Interfaces
     {
         Task<IEnumerable<Property>> GetAllPropertiesAsync(int sellRent);
 
+        Task<Property> GetPropertyDetailAsync(int id);
+
         void AddProperty(Property property);
         void DeleteProperty(int propertyId);
     }
