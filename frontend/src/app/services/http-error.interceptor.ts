@@ -8,6 +8,7 @@ import {
 } from '@angular/common/http';
 import { catchError, concatMap, Observable, of, retry, retryWhen, throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { ErrorCode } from 'src/enums/enums';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
@@ -34,9 +35,25 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   retryRequest(error : Observable<HttpErrorResponse>, retryCount:number) :Observable<HttpErrorResponse> {
     return error.pipe(
       concatMap((checkErr: HttpErrorResponse, count: number) => {
-        // Retry incase WebAPI is down
-        if (checkErr.status === 0 && count<= retryCount) {
-          return of(checkErr);
+        // // Retry incase WebAPI is down
+        // if (checkErr.status === ErrorCode.serverDown && count<= retryCount) {
+        //   return of(checkErr);
+        // }
+
+        // // Retry incase unauthorized error
+        // if (checkErr.status === ErrorCode.unAuthorized && count<= retryCount) {
+        //   return of(checkErr);
+        // } 
+
+        if (count <= retryCount) {
+          switch(checkErr.status) {
+            case ErrorCode.serverDown:
+              return of(checkErr)
+              break
+
+            // case ErrorCode.unAuthorized:
+            //   return of(checkErr)
+          }
         }
         return throwError(checkErr)
       })
