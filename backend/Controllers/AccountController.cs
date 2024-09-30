@@ -28,9 +28,14 @@ namespace web_api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserRegistrationDto registrationDto)
         {
+
+            ApiError apiError = new ApiError();
+
             if (await unitOfWork.userRepository.UserAlreadyExist(registrationDto.Username))
             {
-                return BadRequest("User already exists, Please try something else");
+                apiError.ErrorMessage = "User already exists, Please try something else";
+                apiError.ErrorCode = BadRequest().StatusCode;
+                return BadRequest(apiError);
             }
 
             unitOfWork.userRepository.Register(registrationDto);

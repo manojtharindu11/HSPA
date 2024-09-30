@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpErrorResponse
 } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, concatMap, Observable, of, retry, retryWhen, throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
@@ -18,6 +18,15 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     console.log("Http request started")
     return next.handle(request)
                 .pipe(
+                  // retry(10),
+                  retryWhen(error=> error.pipe(
+                    concatMap((checkErr: HttpErrorResponse,count: number) => {
+                      if (checkErr.status === 0 && count<= 10) {
+                        return of(checkErr);
+                      }
+                      return throwError(checkErr)
+                    })
+                  )),
                   catchError((err:HttpErrorResponse) => {
                     const errorMessage = this.setError(err);
                     console.log(err)
