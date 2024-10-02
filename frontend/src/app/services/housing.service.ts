@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Property } from '../model/property';
 import { environment } from 'src/environments/environment';
+import { keyValuePair } from '../model/KeyValuePair';
 
 @Injectable({
   providedIn: 'root'
@@ -104,5 +105,9 @@ export class HousingService {
 
   getAllCities(): Observable<string[]> {
     return this.http.get<string[]>(this.baseUrl+'/city/cities')
+  }
+
+  getPropertyTypes(): Observable<keyValuePair[]> {
+    return this.http.get<keyValuePair[]>(this.baseUrl+'/propertyType/list')
   }
 }
