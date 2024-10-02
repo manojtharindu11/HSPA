@@ -110,4 +110,8 @@ export class HousingService {
   getPropertyTypes(): Observable<keyValuePair[]> {
     return this.http.get<keyValuePair[]>(this.baseUrl+'/propertyType/list')
   }
+
+  getFurnishingTypes(): Observable<keyValuePair[]> {
+    return this.http.get<keyValuePair[]>(this.baseUrl+'/propertyType/list')
+  }
 }
