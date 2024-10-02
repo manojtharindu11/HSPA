@@ -19,6 +19,8 @@ namespace web_api.Data
 
         public IPropertyTypeRepository propertyTypeRepository => new PropertyTypeRepository(_dataContext);
 
+        public IFurnishingTypeRepository furnishingTypeRepository => new FurnishingTypeRepository(_dataContext);
+
         public async Task<bool> SaveAsync()
         {
             return await _dataContext.SaveChangesAsync() > 0;
