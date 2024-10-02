@@ -8,6 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { ToastrService } from 'ngx-toastr';
+import { IKeyValuePair } from 'src/app/model/iKeyValuePair';
 import { IPropertyBase } from 'src/app/model/iPropertyBase';
 import { Property } from 'src/app/model/property';
 import { HousingService } from 'src/app/services/housing.service';
@@ -26,8 +27,8 @@ export class AddPropertyComponent implements OnInit {
   cityList:any[] = [];
 
   // Will come from masters
-  propertyTypes: Array<string> = ['House', 'Apartment', 'Duplex'];
-  furnishTypes: Array<string> = ['Fully', 'Semi', 'Unfurnished'];
+  propertyTypes: IKeyValuePair[] = [];
+  furnishTypes: IKeyValuePair[] = [];
 
   propertyView: IPropertyBase = {
     id: 0,
@@ -59,6 +60,18 @@ export class AddPropertyComponent implements OnInit {
         console.log(err)
       }
     })
+
+    this.housingService.getPropertyTypes().subscribe({
+      next: (data) => {
+        this.propertyTypes = data;
+      }
+    })
+
+    this.housingService.getFurnishingTypes().subscribe({
+      next: (data) => {
+        this.furnishTypes = data;
+      }
+    })
   }
 
   CreateAddPropertyForm() {
@@ -88,10 +101,10 @@ export class AddPropertyComponent implements OnInit {
       }),
 
       OtherInfo: this.fb.group({
-        RTM: [null, Validators.required],
+        RTM: ['0', Validators.required],
         PossessionOn: [null],
         AOP: [null],
-        Gated: [null],
+        Gated: ['0'],
         MainEntrance: [null],
         Description: [null],
       }),
@@ -248,7 +261,7 @@ export class AddPropertyComponent implements OnInit {
     this.property.totalFloors = this.TotalFloor.value;
     this.property.address = this.Address.value;
     this.property.address2 = this.LandMark.value;
-    this.property.readyToMove = this.RTM.value;
+    this.property.readyToMove = +this.RTM.value;
     this.property.age = this.AOP.value;
     this.property.gated = this.Gated.value;
     this.property.mainEntrance = this.MainEntrance.value;

@@ -112,6 +112,6 @@ export class HousingService {
   }
 
   getFurnishingTypes(): Observable<keyValuePair[]> {
-    return this.http.get<keyValuePair[]>(this.baseUrl+'/propertyType/list')
+    return this.http.get<keyValuePair[]>(this.baseUrl+'/furnishingType/list')
   }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using web_api.DTOs;
@@ -17,7 +18,9 @@ namespace web_api.Controllers
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
-         
+
+        [HttpGet("list")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetFunishingTypes()
         {
             var furnishingTypes = await unitOfWork.furnishingTypeRepository.GetFurnishingTypesAsync();
