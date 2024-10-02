@@ -7,6 +7,8 @@
         IUserRepository userRepository { get; }
 
         IPropertyRepository propertyRepository { get; }
+
+        IPropertyTypeRepository propertyTypeRepository { get; }
         Task<bool> SaveAsync();
     }
 }
