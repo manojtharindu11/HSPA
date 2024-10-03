@@ -25,6 +25,7 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { SortPipe } from './pipes/sort.pipe';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpErrorInterceptor } from './services/http-error.interceptor';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -66,6 +67,7 @@ const appRoutes: Routes = [
     })
   ],
   providers: [
+    DatePipe,
     HousingService,
     {
       provide: HTTP_INTERCEPTORS,
@@ -73,6 +75,6 @@ const appRoutes: Routes = [
       multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

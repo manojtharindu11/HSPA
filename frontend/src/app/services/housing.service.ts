@@ -57,6 +57,7 @@ export class HousingService {
   // }
 
   addProperty(property:Property) {
+    console.log(property)
     return this.http.post(this.baseUrl+"/property/add",property);
 
 
@@ -91,7 +92,7 @@ export class HousingService {
     }
   }
 
-  getPropertyAge(dateOfEstablishment:Date): string {
+  getPropertyAge(dateOfEstablishment:string): string {
     const today = new Date();
     const estDate = new Date(dateOfEstablishment);
     let age = today.getFullYear() - estDate.getFullYear();

@@ -204,7 +204,7 @@
                   <label *ngIf="propertyView.readyToMove">Establishment Date</label>
                   <label *ngIf="!propertyView.readyToMove">Possession Date</label>
                   <input type="text" class="form-control" formControlName="PossessionOn" bsDatepicker [bsConfig]="{containerClass: 'theme-dark-blue',
-                    dateInputFormat: 'MMM DD, YYYY'}" #pos (bsValueChange)="this.propertyView.estPossessionOn= $event">
+                    dateInputFormat: 'MMM DD, YYYY'}" #pos (bsValueChange)="this.propertyView.estPossessionOn= pos.value">
                 </div>
 
                 <div class="form-group col-12">

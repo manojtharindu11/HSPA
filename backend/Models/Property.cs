@@ -39,15 +39,15 @@ namespace web_api.Models
         public int TotalFloors { get; set; } // Fixed typo
 
         public bool ReadyToMove { get; set; }
-        public string MainEntrance { get; set; }
+        public string? MainEntrance { get; set; }
 
-        public int Security { get; set; }
+        public int? Security { get; set; }
         public int Gated { get; set; }
-        public int Maintenance { get; set; }
+        public int? Maintenance { get; set; }
 
         public DateTime? EstPossessionOn { get; set; } // Made nullable
 
-        public int Age { get; set; }
+        public int? Age { get; set; }
         public string Description { get; set; }
 
         public ICollection<Photo> Photos { get; set; }

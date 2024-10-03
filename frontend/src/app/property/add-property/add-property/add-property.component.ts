@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
@@ -44,6 +45,7 @@ export class AddPropertyComponent implements OnInit {
   };
 
   constructor(
+    private datePipe:DatePipe,
     private fb: FormBuilder,
     private router: Router,
     private housingService: HousingService,
@@ -77,7 +79,7 @@ export class AddPropertyComponent implements OnInit {
   CreateAddPropertyForm() {
     this.addPropertyForm = this.fb.group({
       BasicInfo: this.fb.group({
-        SellRent: ['1', Validators.required],
+        SellRent: [true, Validators.required],
         BHK: [null, Validators.required],
         PType: [null, Validators.required],
         FType: [null, Validators.required],
@@ -101,7 +103,7 @@ export class AddPropertyComponent implements OnInit {
       }),
 
       OtherInfo: this.fb.group({
-        RTM: ['0', Validators.required],
+        RTM: [false, Validators.required],
         PossessionOn: [null],
         AOP: [null],
         Gated: ['0'],
@@ -233,7 +235,7 @@ export class AddPropertyComponent implements OnInit {
           );
           console.log(this.addPropertyForm);
     
-          if (this.SellRent.value === '2') {
+          if (this.SellRent.value === true) {
             this.router.navigate(['/rent-property']);
           } else {
             this.router.navigate(['/']);
@@ -265,11 +267,11 @@ export class AddPropertyComponent implements OnInit {
     this.property.totalFloors = this.TotalFloor.value;
     this.property.address = this.Address.value;
     this.property.address2 = this.LandMark.value;
-    this.property.readyToMove = this.RTM.value;
+    this.property.readyToMove = this.propertyView.readyToMove;
     this.property.age = this.AOP.value;
     this.property.gated = this.Gated.value;
     this.property.mainEntrance = this.MainEntrance.value;
-    this.property.estPossessionOn = this.PossessionOn.value;
+    this.property.estPossessionOn = this.datePipe.transform(this.PossessionOn.value,"MM/dd/yyyy")!;
     this.property.description = this.Description.value;
   }
 
