@@ -7,9 +7,7 @@ namespace web_api.DTOs
     public class PropertyDto
     {
         public int SellRent { get; set; }
-
         public string Name { get; set; }
-
         public int PropertyTypeId { get; set; }
         public int BHK { get; set; }
         public int FurnishingTypeId { get; set; }

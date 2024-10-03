@@ -43,8 +43,8 @@ namespace web_api.Controllers
         public async Task<IActionResult> AddProperty(PropertyDto propertyDto)
         {
             var property = mapper.Map<Property>(propertyDto);
-            property.PostedBy = 1;
-            property.LastUpdatedBy = 1;
+            property.PostedBy = 2;
+            property.LastUpdatedBy = 2;
             unitOfWork.propertyRepository.AddProperty(property);
             await unitOfWork.SaveAsync();
             return StatusCode(201);

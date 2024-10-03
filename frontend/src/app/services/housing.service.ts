@@ -57,16 +57,27 @@ export class HousingService {
   // }
 
   addProperty(property:Property) {
-    let newProp = [property]
+    return this.http.post(this.baseUrl+"/property/add",property);
 
-    // Add new property in array if new property already exist in local storage
-    const prop = localStorage.getItem('newProp')
-    if(prop) {
-      newProp = [property,
-                    ...JSON.parse(prop)
-      ]
-    }
-    localStorage.setItem('newProp',JSON.stringify(newProp))
+
+
+
+
+
+
+
+
+    // Local store
+    // let newProp = [property]
+
+    // // Add new property in array if new property already exist in local storage
+    // const prop = localStorage.getItem('newProp')
+    // if(prop) {
+    //   newProp = [property,
+    //                 ...JSON.parse(prop)
+    //   ]
+    // }
+    // localStorage.setItem('newProp',JSON.stringify(newProp))
   }
 
   newPropId() {

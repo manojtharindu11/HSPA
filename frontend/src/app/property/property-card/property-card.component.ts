@@ -20,6 +20,6 @@ export class PropertyCardComponent {
     bhk: 0,
     builtArea: 0,
     city: "",
-    readyToMove: 0
+    readyToMove: false
 };
 }

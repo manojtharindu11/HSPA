@@ -189,9 +189,9 @@
                 <div class="form-group col-12">
                   <p>Ready to Move</p>
                   <div class="btn-group" btnRadioGroup formControlName="RTM">
-                    <label class="btn btn-outline-primary mr-2" btnRadio=1 tabindex="0" role="button" name="RTM" (click)="propertyView.readyToMove=1">Yes
+                    <label class="btn btn-outline-primary mr-2" btnRadio=1 tabindex="0" role="button" name="RTM" (click)="propertyView.readyToMove=true">Yes
                     </label>
-                    <label class="btn btn-outline-primary" btnRadio=2 tabindex="0" role="button" name="RTM" (click)="propertyView.readyToMove=0">No
+                    <label class="btn btn-outline-primary" btnRadio=2 tabindex="0" role="button" name="RTM" (click)="propertyView.readyToMove=false">No
                     </label>
                   </div>
                   <div class="error-block" *ngIf="RTM.invalid && nextClicked">

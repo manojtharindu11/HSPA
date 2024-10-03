@@ -39,7 +39,7 @@ export class AddPropertyComponent implements OnInit {
     furnishingType: '',
     bhk: 0,
     city: '',
-    readyToMove: 0,
+    readyToMove: false,
     builtArea: 0,
   };
 
@@ -226,17 +226,21 @@ export class AddPropertyComponent implements OnInit {
     this.nextClicked = true;
     if (this.allTabsValid()) {
       this.mapProperty();
-      this.housingService.addProperty(this.property);
-      this.toastr.success(
-        'Congrats, your property listed successfully on our website'
-      );
-      console.log(this.addPropertyForm);
+      this.housingService.addProperty(this.property).subscribe({
+        next:() => {
+          this.toastr.success(
+            'Congrats, your property listed successfully on our website'
+          );
+          console.log(this.addPropertyForm);
+    
+          if (this.SellRent.value === '2') {
+            this.router.navigate(['/rent-property']);
+          } else {
+            this.router.navigate(['/']);
+          }
+        }
+      })
 
-      if (this.SellRent.value === '2') {
-        this.router.navigate(['/rent-property']);
-      } else {
-        this.router.navigate(['/']);
-      }
     } else {
       this.toastr.error(
         'Please review the form and provide all valid entries'
@@ -248,10 +252,10 @@ export class AddPropertyComponent implements OnInit {
     this.property.id = this.housingService.newPropId();
     this.property.sellRent = +this.SellRent.value;
     this.property.bhk = this.BHK.value;
-    this.property.propertyType = this.PType.value;
+    this.property.propertyTypeId = this.PType.value;
     this.property.name = this.Name.value;
-    this.property.city = this.City.value;
-    this.property.furnishingType = this.FType.value;
+    this.property.cityId = this.City.value;
+    this.property.furnishingTypeId = this.FType.value;
     this.property.price = this.Price.value;
     this.property.security = this.Security.value;
     this.property.maintenance = this.Maintenance.value;
@@ -261,7 +265,7 @@ export class AddPropertyComponent implements OnInit {
     this.property.totalFloors = this.TotalFloor.value;
     this.property.address = this.Address.value;
     this.property.address2 = this.LandMark.value;
-    this.property.readyToMove = +this.RTM.value;
+    this.property.readyToMove = this.RTM.value;
     this.property.age = this.AOP.value;
     this.property.gated = this.Gated.value;
     this.property.mainEntrance = this.MainEntrance.value;
