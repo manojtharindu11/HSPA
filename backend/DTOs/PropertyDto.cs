@@ -21,11 +21,11 @@ namespace web_api.DTOs
         public int TotalFloors { get; set; }
         public bool ReadyToMove { get; set; }
         public string MainEntrance { get; set; }
-        //public int Security { get; set; }
+        public int Security { get; set; } = 0;
         public int Gated { get; set; }
-        //public int Maintenance { get; set; }
+        public int Maintenance { get; set; } = 0;
         public DateTime? EstPossessionOn { get; set; }
-        //public int Age { get; set; }
+        public int Age { get; set; } = 0;
         public string Description { get; set; }
     }
 }
