@@ -42,7 +42,7 @@ namespace web_api.Models
         public string? MainEntrance { get; set; }
 
         public int? Security { get; set; }
-        public int Gated { get; set; }
+        public bool Gated { get; set; }
         public int? Maintenance { get; set; }
 
         public DateTime? EstPossessionOn { get; set; } // Made nullable

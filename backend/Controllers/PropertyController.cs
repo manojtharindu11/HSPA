@@ -45,9 +45,6 @@ namespace web_api.Controllers
             var property = mapper.Map<Property>(propertyDto);
             property.PostedBy = 2;
             property.LastUpdatedBy = 2;
-            property.Age = 10;
-            property.Security = 5;
-            property.MainEntrance = "good";
             unitOfWork.propertyRepository.AddProperty(property);
             await unitOfWork.SaveAsync();
             return StatusCode(201);
