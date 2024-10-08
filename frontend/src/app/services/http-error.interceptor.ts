@@ -72,7 +72,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         return error.statusText
       }
       // Server side error
-      if (error.status != 0)
+      if (error.error.errorMessage && error.status != 0)
         errorMessage = error.error.errorMessage;
     }
     return errorMessage;
