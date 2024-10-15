@@ -53,16 +53,12 @@ namespace web_api.Controllers
             return StatusCode(201);
         }
 
-        [HttpPost("add/photo/{id}")]
+        [HttpPost("add/photo/{propertyId}")]
         [Authorize]
-        public async Task<IActionResult> AddPropertyPhoto(IFormFile photo,int propertyId)
+        public async Task<IActionResult> AddPropertyPhoto(IFormFile file,int propertyId)
         {
-            var result = photoService.UploadImageAsync(photo);
-            if (result.Exception != null)
-            {
-                return BadRequest(result.Exception.Message);
-            }
-            return Ok(201);
+            var result = await photoService.UploadImageAsync(file);
+            return Ok(result);
         }
     }
 }

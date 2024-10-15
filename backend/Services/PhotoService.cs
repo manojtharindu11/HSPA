@@ -11,12 +11,11 @@ namespace web_api.Services
         {
             Account account = new Account(
                 configuration.GetSection("CloudinarySettings:CloudName").Value,
-                configuration.GetSection("CloudinarySettings:ApiKey").Value,
-                configuration.GetSection("CloudinarySettings:ApiSecret").Value
+                configuration.GetSection("CloudinarySettings:Cloudinary_ApiKey").Value,
+                configuration.GetSection("CloudinarySettings:Cloudinary_ApiSecret").Value
                 );
 
             cloudinary = new Cloudinary(account);
-            cloudinary.Api.Secure = true;
         }
         public async Task<ImageUploadResult> UploadImageAsync(IFormFile photo)
         {
