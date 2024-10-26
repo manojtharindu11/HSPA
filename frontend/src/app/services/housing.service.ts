@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Property } from '../model/property';
 import { environment } from 'src/environments/environment';
-import { keyValuePair } from '../model/KeyValuePair';
+import { keyValuePair } from '../model/keyValuePair';
 
 @Injectable({
   providedIn: 'root'

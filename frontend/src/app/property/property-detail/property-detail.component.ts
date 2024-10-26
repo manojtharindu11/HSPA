@@ -23,6 +23,7 @@ export class PropertyDetailComponent implements OnInit {
       this.route.data.subscribe(
         (data) => {
           this.property = data['prp'];
+          // console.log(this.property)
         }
       )
 
@@ -80,6 +81,20 @@ export class PropertyDetailComponent implements OnInit {
         }
       ];
       
+  }
+
+  getPropertyPhotos(): NgxGalleryImage[] {
+    const photoUrls: NgxGalleryImage[] = []
+
+    for (const photo of this.property.photos!) {
+      photoUrls.push({
+        small: photo.imageUrl,
+        medium: photo.imageUrl,
+        big: photo.imageUrl
+      })
+    }
+
+    return photoUrls;
   }
 
   
