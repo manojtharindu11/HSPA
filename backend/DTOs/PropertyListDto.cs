@@ -20,5 +20,7 @@ namespace web_api.DTOs
         public bool ReadyToMove { get; set; }
         public DateTime EstPossessionOn { get; set; }
 
+        public ICollection<PhotoDto> Photos { get; set; }
+
     }
 }

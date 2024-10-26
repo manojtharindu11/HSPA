@@ -27,7 +27,6 @@ namespace web_api.DTOs
         public DateTime? EstPossessionOn { get; set; }
         public int Age { get; set; } = 0;
         public string Description { get; set; }
-
-        public ICollection<PhtoDTO> Photos { get; set; }
+        public ICollection<PhotoDto> Photos { get; set; }
     }
 }
