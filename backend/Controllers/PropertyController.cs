@@ -58,7 +58,27 @@ namespace web_api.Controllers
         public async Task<IActionResult> AddPropertyPhoto(IFormFile file,int propertyId)
         {
             var result = await photoService.UploadImageAsync(file);
-            return Ok(result);
+            if (result.Error != null)
+            {
+                return BadRequest(result.Error.Message);
+            }
+            var property = await unitOfWork.propertyRepository.GetPropertyByIdAsync(propertyId);
+
+            var photo = new Photo
+            {
+                ImageUrl = result.SecureUrl.AbsoluteUri,
+                PublicId = result.PublicId
+            };
+
+            if (property.Photos.Count == 0)
+            {
+                photo.IsPrimary = true;
+            }
+
+            property.Photos.Add(photo);
+            await unitOfWork.SaveAsync();
+
+            return StatusCode(201);
         }
     }
 }
