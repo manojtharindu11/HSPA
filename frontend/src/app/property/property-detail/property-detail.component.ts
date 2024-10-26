@@ -11,6 +11,7 @@ import { HousingService } from 'src/app/services/housing.service';
 })
 export class PropertyDetailComponent implements OnInit {
   public propertyId:number = 0;
+  public mainPhotoUrl:string = '';
   property = new Property()
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
@@ -53,33 +54,7 @@ export class PropertyDetailComponent implements OnInit {
         }
       ];
   
-      this.galleryImages = [
-        {
-          small: 'assets/images/inside1.jpg',
-          medium: 'assets/images/inside1.jpg',
-          big: 'assets/images/inside1.jpg'
-        },
-        {
-          small: 'assets/images/inside2.jpg',
-          medium: 'assets/images/inside2.jpg',
-          big: 'assets/images/inside2.jpg'
-        },
-        {
-          small: 'assets/images/inside3.jpg',
-          medium: 'assets/images/inside3.jpg',
-          big: 'assets/images/inside3.jpg'
-        },
-        {
-          small: 'assets/images/inside4.jpg',
-          medium: 'assets/images/inside4.jpg',
-          big: 'assets/images/inside4.jpg'
-        },
-        {
-          small: 'assets/images/inside5.jpg',
-          medium: 'assets/images/inside5.jpg',
-          big: 'assets/images/inside5.jpg'
-        }
-      ];
+      this.galleryImages = this.getPropertyPhotos();
       
   }
 
@@ -87,11 +62,15 @@ export class PropertyDetailComponent implements OnInit {
     const photoUrls: NgxGalleryImage[] = []
 
     for (const photo of this.property.photos!) {
-      photoUrls.push({
-        small: photo.imageUrl,
-        medium: photo.imageUrl,
-        big: photo.imageUrl
-      })
+      if (photo.isPrimary) this.mainPhotoUrl = photo.imageUrl;
+      else {
+        photoUrls.push({
+          small: photo.imageUrl,
+          medium: photo.imageUrl,
+          big: photo.imageUrl
+        })
+      }
+
     }
 
     return photoUrls;
