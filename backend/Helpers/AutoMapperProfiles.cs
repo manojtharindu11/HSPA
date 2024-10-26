@@ -27,8 +27,7 @@ namespace web_api.Helpers
             CreateMap<PropertyType, KeyValuePairDto>().ReverseMap();
             CreateMap<FurnishingType, KeyValuePairDto>().ReverseMap();
             CreateMap<Property, PropertyDto>().ReverseMap();
-
-
+            CreateMap<Photo, PhtoDTO>().ReverseMap();
         }
     }
 }
