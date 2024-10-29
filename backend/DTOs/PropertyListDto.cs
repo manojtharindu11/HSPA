@@ -7,7 +7,6 @@ namespace web_api.DTOs
     public class PropertyListDto
     {
         public int Id { get; set; }
-
         public int SellRent { get; set; }
         public string Name { get; set; }
         public string PropertyType { get; set; }
@@ -19,8 +18,7 @@ namespace web_api.DTOs
         public string Country { get; set; }
         public bool ReadyToMove { get; set; }
         public DateTime EstPossessionOn { get; set; }
-
-        public ICollection<PhotoDto> Photos { get; set; }
+        public string Photo {  get; set; }
 
     }
 }
