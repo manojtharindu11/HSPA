@@ -80,5 +80,50 @@ namespace web_api.Controllers
 
             return StatusCode(201);
         }
+
+
+        [HttpPost("set-primary-photo/{propertyId}/{publicPhotoId}")]
+        [Authorize]
+        public async Task<IActionResult> setPrimaryPhoto(int propertyId, string publicPhotoId)
+        {
+            var userId = GetUserId();
+
+            var property = await unitOfWork.propertyRepository.GetPropertyByIdAsync(propertyId);
+
+
+
+            if (property == null)
+            {
+                return BadRequest("No such property or photo exists");
+            }
+
+            if (property.PostedBy != userId)
+            {
+                return BadRequest("You are not authorized to change the photo");
+            }
+
+            var photo = property.Photos.FirstOrDefault(p => p.PublicId == publicPhotoId);
+
+            if (photo == null)
+            {
+                return BadRequest("No such property or photo exists");
+            }
+
+            if (photo.IsPrimary)
+            {
+                return BadRequest("This is already a primary photo");
+            }
+
+            var currentPrimaryPhoto = property.Photos.FirstOrDefault(p => p.IsPrimary);
+            if (currentPrimaryPhoto != null)
+            {
+                currentPrimaryPhoto.IsPrimary = false;
+                photo.IsPrimary = true;
+            }
+
+            if (await unitOfWork.SaveAsync()) return NoContent();
+
+            return BadRequest("Some error has occured, failed to set primary photo");
+        }
     }
 }
