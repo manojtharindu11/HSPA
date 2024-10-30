@@ -9,8 +9,8 @@ import {
 import { Router } from '@angular/router';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { ToastrService } from 'ngx-toastr';
-import { IKeyValuePair } from 'src/app/model/iKeyValuePair';
 import { IPropertyBase } from 'src/app/model/iPropertyBase';
+import { KeyValuePair } from 'src/app/model/keyValuePair';
 import { Property } from 'src/app/model/property';
 import { HousingService } from 'src/app/services/housing.service';
 
@@ -28,8 +28,8 @@ export class AddPropertyComponent implements OnInit {
   cityList:any[] = [];
 
   // Will come from masters
-  propertyTypes: IKeyValuePair[] = [];
-  furnishTypes: IKeyValuePair[] = [];
+  propertyTypes: KeyValuePair[] = [];
+  furnishTypes: KeyValuePair[] = [];
 
   propertyView: IPropertyBase = {
     id: 0,
