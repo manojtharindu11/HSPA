@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Property } from '../model/property';
 import { environment } from 'src/environments/environment';
-import { keyValuePair } from '../model/keyValuePair';
+import { KeyValuePair } from '../model/keyValuePair';
 
 @Injectable({
   providedIn: 'root'
@@ -124,11 +124,11 @@ export class HousingService {
     return this.http.get<string[]>(this.baseUrl+'/city/cities')
   }
 
-  getPropertyTypes(): Observable<keyValuePair[]> {
-    return this.http.get<keyValuePair[]>(this.baseUrl+'/propertyType/list')
+  getPropertyTypes(): Observable<KeyValuePair[]> {
+    return this.http.get<KeyValuePair[]>(this.baseUrl+'/propertyType/list')
   }
 
-  getFurnishingTypes(): Observable<keyValuePair[]> {
-    return this.http.get<keyValuePair[]>(this.baseUrl+'/furnishingType/list')
+  getFurnishingTypes(): Observable<KeyValuePair[]> {
+    return this.http.get<KeyValuePair[]>(this.baseUrl+'/furnishingType/list')
   }
 }
