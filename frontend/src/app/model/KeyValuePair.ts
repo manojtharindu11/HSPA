@@ -1,6 +1,4 @@
-import { IKeyValuePair } from "./iKeyValuePair";
-
-export class KeyValuePair implements IKeyValuePair {
+export class KeyValuePair {
     id: number = 0;
     name: string = '';
 }
