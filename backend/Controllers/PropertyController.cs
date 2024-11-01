@@ -125,5 +125,44 @@ namespace web_api.Controllers
 
             return BadRequest("Some error has occured, failed to set primary photo");
         }
+
+        [HttpDelete("delete-photo/{propertyId}/{publicPhotoId}")]
+        [Authorize]
+        public async Task<IActionResult> deletePhoto(int propertyId, string publicPhotoId)
+        {
+            var userId = GetUserId();
+
+            var property = await unitOfWork.propertyRepository.GetPropertyByIdAsync(propertyId);
+
+
+
+            if (property == null)
+            {
+                return BadRequest("No such property or photo exists");
+            }
+
+            if (property.PostedBy != userId)
+            {
+                return BadRequest("You are not authorized to delete the photo");
+            }
+
+            var photo = property.Photos.FirstOrDefault(p => p.PublicId == publicPhotoId);
+
+            if (photo == null)
+            {
+                return BadRequest("No such property or photo exists");
+            }
+
+            if (photo.IsPrimary)
+            {
+                return BadRequest("You can not delete the primary photo");
+            }
+
+            property.Photos.Remove(photo);
+
+            if (await unitOfWork.SaveAsync()) return Ok();
+
+            return BadRequest("Some error has occured, failed to delete photo");
+        }
     }
 }
