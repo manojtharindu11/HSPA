@@ -158,6 +158,13 @@ namespace web_api.Controllers
                 return BadRequest("You can not delete the primary photo");
             }
 
+            var result = await photoService.DeletePhotoAsync(photo.PublicId);
+
+            if (result.Error != null)
+            {
+                return BadRequest(result.Error.Message);
+            }
+
             property.Photos.Remove(photo);
 
             if (await unitOfWork.SaveAsync()) return Ok();
