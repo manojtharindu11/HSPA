@@ -14,10 +14,13 @@ export class PhotoEditorComponent {
   constructor(private housingService: HousingService) {}
 
   setPrimaryPhoto(propertyId: number, photo: Photo) {
-    this.housingService.setPrimaryPhoto(propertyId, photo.publicId).subscribe({
-      next: (res: any) => {
-        console.log(res);
-      },
-    });
+    this.housingService
+      .setPrimaryPhoto(propertyId, photo.publicId)
+      .subscribe(() => {
+        this.property.photos?.forEach((p) => {
+          if (p.isPrimary == true) p.isPrimary = false;
+          if (p.publicId === photo.publicId) p.isPrimary = true;
+        });
+      });
   }
 }
