@@ -18,9 +18,6 @@ export class PhotoEditorComponent {
       next: (res: any) => {
         console.log(res);
       },
-      error: (err: any) => {
-        console.log(err);
-      },
     });
   }
 }
