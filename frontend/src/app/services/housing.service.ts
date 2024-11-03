@@ -136,8 +136,9 @@ export class HousingService {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       }),
     };
+    // console.log(propertyId, propertyPhotoId);
     return this.http.post(
-      `${this.baseUrl} /property/set-primary-photo/${propertyId}/${propertyPhotoId}}`,
+      `${this.baseUrl}/property/set-primary-photo/${propertyId}/${propertyPhotoId}`,
       {},
       httpOptions
     );
