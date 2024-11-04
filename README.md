@@ -81,18 +81,6 @@ This project uses GitHub Actions to automate the frontend's deployment to Fireba
 - **AutoMapper**: Simplifies object-to-object mapping.
 - **Repository Pattern**: Ensures clean architecture and maintainable data access layers.
 
-## Deployment
-
-### Deploying to Firebase Manually
-1. Build the Angular project:
-   ```bash
-   ng build --prod
-   ```
-2. Deploy using Firebase CLI:
-   ```bash
-   firebase deploy
-   ```
-
 ## Contributing
 
 Contributions are welcome! Please fork this repository and submit pull requests for any new features or bug fixes.
