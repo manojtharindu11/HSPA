@@ -4,3 +4,4 @@
 - auto mapper 
 - retry when status code is zero
 - repository pattern
+- ng-2 file upload package
