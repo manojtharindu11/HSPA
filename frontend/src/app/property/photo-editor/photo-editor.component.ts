@@ -50,7 +50,7 @@ export class PhotoEditorComponent implements OnInit {
 
   initializeFileUploader() {
     this.uploader = new FileUploader({
-      url: `${this.baseUrl}/add/photo/${String(this.property.id)}`,
+      url: `${this.baseUrl}/property/add/photo/${String(this.property.id)}`,
       authToken: `Bearer ${localStorage.getItem('token')}`,
       isHTML5: true,
       allowedFileType: ['image'],
@@ -58,5 +58,16 @@ export class PhotoEditorComponent implements OnInit {
       autoUpload: true,
       maxFileSize: this.maxAllowedFileSize
     });
+
+    this.uploader.onAfterAddingFile = (file) => {
+      file.withCredentials = false;
+    }
+
+    this.uploader.onSuccessItem = (item,response,status,headers) => {
+      if (response) {
+        const photo = JSON.parse(response);
+        this.property.photos?.push(photo);
+      }
+    }
   }
 }
