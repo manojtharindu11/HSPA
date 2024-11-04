@@ -71,48 +71,6 @@ cd your-angular-net-project
 ### Automated Deployment to Firebase
 This project uses GitHub Actions to automate the frontend's deployment to Firebase Hosting. The workflow file is located in `.github/workflows/deploy.yml`.
 
-**Steps to set up the GitHub workflow**:
-1. Create a Firebase project and link it to your GitHub repository.
-2. Add the `FIREBASE_SERVICE_ACCOUNT_KEY` secret in GitHub for authentication.
-3. Modify the workflow file as needed for your environment.
-
-### Sample Workflow Configuration
-```yaml
-name: Deploy to Firebase Hosting
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16'
-
-    - name: Install Dependencies
-      run: npm ci
-      working-directory: ./client
-
-    - name: Build Project
-      run: npm run build -- --prod
-      working-directory: ./client
-
-    - name: Deploy to Firebase
-      uses: w9jds/firebase-action@v2.4.0
-      with:
-        args: deploy --only hosting
-      env:
-        FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
-```
-
 ## Key Libraries and Packages
 
 ### Angular
