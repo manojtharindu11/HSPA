@@ -6,20 +6,23 @@ import { environment } from 'src/environments/environment';
 import { KeyValuePair } from '../model/keyValuePair';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HousingService {
-
   baseUrl = environment.baseUrl;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getProperty(id:number) {
-    return this.http.get<Property>(this.baseUrl+"/property/detail/"+id.toString());
+  getProperty(id: number) {
+    return this.http.get<Property>(
+      this.baseUrl + '/property/detail/' + id.toString()
+    );
   }
 
   // Get properties from database
-  getAllProperties(sellRent?:number) : Observable<Property[]> {
-    return this.http.get<Property[]>(this.baseUrl+"/property/list/"+sellRent?.toString())
+  getAllProperties(sellRent?: number): Observable<Property[]> {
+    return this.http.get<Property[]>(
+      this.baseUrl + '/property/list/' + sellRent?.toString()
+    );
   }
 
   // Get properties from local storage
@@ -55,22 +58,18 @@ export class HousingService {
   //   );
   // }
 
-  addProperty(property:Property) {
-    console.log(property)
+  addProperty(property: Property) {
+    console.log(property);
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer '+localStorage.getItem('token')
-      })
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
     };
-    return this.http.post(this.baseUrl+"/property/add",property,httpOptions);
-
-
-
-
-
-
-
-
+    return this.http.post(
+      this.baseUrl + '/property/add',
+      property,
+      httpOptions
+    );
 
     // Local store
     // let newProp = [property]
@@ -86,17 +85,17 @@ export class HousingService {
   }
 
   newPropId() {
-    const previousID = localStorage.getItem('PID')
-    if(previousID) {
-      localStorage.setItem('PID',String(+previousID + 1));
-      return +previousID+1;
+    const previousID = localStorage.getItem('PID');
+    if (previousID) {
+      localStorage.setItem('PID', String(+previousID + 1));
+      return +previousID + 1;
     } else {
-      localStorage.setItem('PID','101');
-      return 101
+      localStorage.setItem('PID', '101');
+      return 101;
     }
   }
 
-  getPropertyAge(dateOfEstablishment:string): string {
+  getPropertyAge(dateOfEstablishment: string): string {
     const today = new Date();
     const estDate = new Date(dateOfEstablishment);
     let age = today.getFullYear() - estDate.getFullYear();
@@ -113,21 +112,47 @@ export class HousingService {
     }
 
     if (age === 0) {
-      return "Less than a year"
+      return 'Less than a year';
     }
 
     return age.toString();
   }
 
   getAllCities(): Observable<string[]> {
-    return this.http.get<string[]>(this.baseUrl+'/city/cities')
+    return this.http.get<string[]>(this.baseUrl + '/city/cities');
   }
 
   getPropertyTypes(): Observable<KeyValuePair[]> {
-    return this.http.get<KeyValuePair[]>(this.baseUrl+'/propertyType/list')
+    return this.http.get<KeyValuePair[]>(this.baseUrl + '/propertyType/list');
   }
 
   getFurnishingTypes(): Observable<KeyValuePair[]> {
-    return this.http.get<KeyValuePair[]>(this.baseUrl+'/furnishingType/list')
+    return this.http.get<KeyValuePair[]>(this.baseUrl + '/furnishingType/list');
+  }
+
+  setPrimaryPhoto(propertyId: number, propertyPhotoId: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+    };
+    // console.log(propertyId, propertyPhotoId);
+    return this.http.post(
+      `${this.baseUrl}/property/set-primary-photo/${propertyId}/${propertyPhotoId}`,
+      {},
+      httpOptions
+    );
+  }
+
+  deletePhoto(propertyId: number, propertyPhotoId: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+    };
+    return this.http.delete(
+      `${this.baseUrl}/property/delete-photo/${propertyId}/${propertyPhotoId}`,
+      httpOptions
+    );
   }
 }

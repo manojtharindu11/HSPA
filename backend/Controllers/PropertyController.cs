@@ -55,7 +55,7 @@ namespace web_api.Controllers
 
         [HttpPost("add/photo/{propertyId}")]
         [Authorize]
-        public async Task<IActionResult> AddPropertyPhoto(IFormFile file,int propertyId)
+        public async Task<ActionResult<PhotoDto>> AddPropertyPhoto(IFormFile file,int propertyId)
         {
             var result = await photoService.UploadImageAsync(file);
             if (result.Error != null)
@@ -76,9 +76,11 @@ namespace web_api.Controllers
             }
 
             property.Photos.Add(photo);
-            await unitOfWork.SaveAsync();
+            if (await unitOfWork.SaveAsync()) return mapper.Map<PhotoDto>(photo);
 
-            return StatusCode(201);
+
+            return BadRequest("Some problem occured in uploading the photo, please retry.");
+
         }
 
 
