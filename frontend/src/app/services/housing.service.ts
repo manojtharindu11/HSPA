@@ -143,4 +143,16 @@ export class HousingService {
       httpOptions
     );
   }
+
+  deletePhoto(propertyId: number, propertyPhotoId: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+    };
+    return this.http.delete(
+      `${this.baseUrl}/property/delete-photo/${propertyId}/${propertyPhotoId}`,
+      httpOptions
+    );
+  }
 }
