@@ -29,4 +29,12 @@ export class PhotoEditorComponent {
   mainPhotoChange(url: string) {
     this.mainPhotoChangeEvent.emit(url);
   }
+
+  deletePhoto(propertyId: number, photo: Photo) {
+    this.housingService
+      .deletePhoto(propertyId, photo.publicId)
+      .subscribe(() => {
+        this.property.photos = this.property.photos?.filter(p => p.publicId !== photo.publicId);
+      });
+  }
 }
